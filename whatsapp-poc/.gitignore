@@ -1,0 +1,15 @@
+# Secrets — NEVER commit
+.env
+.env.local
+
+# Docker volumes
+postgres-data/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Logs
+*.log

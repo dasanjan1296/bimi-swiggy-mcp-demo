@@ -1,0 +1,53 @@
+[project]
+name = "bimi-backend"
+version = "0.1.0"
+description = "Bimi backend — AI family-coordination agent (meals + groceries + cook briefing)"
+requires-python = ">=3.12"
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
+testpaths = ["tests"]
+addopts = [
+    "-q",
+    "--strict-markers",
+    "--strict-config",
+    "-ra",
+    "-m", "not live_server",
+]
+markers = [
+    "live_server: integration test that requires a live uvicorn on :8002 (skip by default)",
+    "slow: tests that take more than 2 seconds",
+]
+filterwarnings = [
+    "ignore::DeprecationWarning:passlib.*",
+    "ignore::DeprecationWarning:apscheduler.*",
+]
+
+[tool.ruff]
+line-length = 110
+target-version = "py312"
+extend-exclude = [".venv", "alembic/versions"]
+
+[tool.ruff.lint]
+select = [
+    "E",      # pycodestyle errors
+    "F",      # pyflakes
+    "I",      # isort
+    "B",      # flake8-bugbear
+    "UP",     # pyupgrade
+    "W",      # pycodestyle warnings
+]
+ignore = [
+    "E501",   # line too long (we set line-length=110, the few overruns are intentional)
+    "B008",   # function call in default arg (FastAPI Depends pattern)
+    "B904",   # raise within except without from (HTTPException pattern)
+]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**" = ["B017", "B018"]
+"alembic/env.py" = ["E402", "F401"]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"

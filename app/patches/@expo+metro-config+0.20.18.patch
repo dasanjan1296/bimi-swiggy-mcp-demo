@@ -1,0 +1,34 @@
+diff --git a/node_modules/@expo/metro-config/build/serializer/fork/js.js b/node_modules/@expo/metro-config/build/serializer/fork/js.js
+index 77268e3..4084ee7 100644
+--- a/node_modules/@expo/metro-config/build/serializer/fork/js.js
++++ b/node_modules/@expo/metro-config/build/serializer/fork/js.js
+@@ -69,7 +69,10 @@ function getModuleParams(module, options) {
+                         searchParams.set('modulesOnly', 'true');
+                         searchParams.set('runModule', 'false');
+                     }
+-                    const bundlePath = path_1.default.relative(options.serverRoot, dependency.absolutePath);
++                    // PATCH (bimi): guard against undefined paths in lazy mode
++                    const bundlePath = (options.serverRoot && dependency.absolutePath)
++                        ? path_1.default.relative(options.serverRoot, dependency.absolutePath)
++                        : (dependency.absolutePath || '');
+                     paths[id] =
+                         '/' +
+                             path_1.default.join(path_1.default.dirname(bundlePath), 
+@@ -99,7 +102,16 @@ function getModuleParams(module, options) {
+     if (options.dev) {
+         // Add the relative path of the module to make debugging easier.
+         // This is mapped to `module.verboseName` in `require.js`.
+-        params.push(path_1.default.relative(options.projectRoot, module.path));
++        // PATCH (bimi): guard against undefined paths that can occur in lazy
++        // bundling mode — prevents a Metro serializer crash that produces a
++        // white screen on web/iOS dev.
++        if (options.projectRoot && module.path) {
++            params.push(path_1.default.relative(options.projectRoot, module.path));
++        } else if (module.path) {
++            params.push(module.path);
++        } else {
++            params.push('');
++        }
+     }
+     return { params, paths };
+ }

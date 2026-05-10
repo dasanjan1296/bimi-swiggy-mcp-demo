@@ -1,0 +1,66 @@
+{
+  "expo": {
+    "name": "bimi",
+    "slug": "bimi",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "scheme": "bimi",
+    "userInterfaceStyle": "dark",
+    "newArchEnabled": true,
+    "splash": {
+      "backgroundColor": "#0A0A0F",
+      "resizeMode": "contain",
+      "image": "./assets/splash.png"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.bimi.app",
+      "infoPlist": {
+        "NSCameraUsageDescription": "Bimi needs camera access to scan grocery items and receipts.",
+        "NSMicrophoneUsageDescription": "Bimi needs microphone access to record voice messages to your cook.",
+        "NSPhotoLibraryUsageDescription": "Bimi needs photo library access to share images of grocery items."
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#0A0A0F"
+      },
+      "package": "com.bimi.app",
+      "permissions": [
+        "NOTIFICATIONS",
+        "CAMERA",
+        "RECORD_AUDIO"
+      ]
+    },
+    "plugins": [
+      "expo-router",
+      "expo-font",
+      "expo-secure-store",
+      [
+        "expo-notifications",
+        {
+          "icon": "./assets/icon.png",
+          "color": "#F0A060"
+        }
+      ],
+      "@sentry/react-native"
+    ],
+    "experiments": {
+      "typedRoutes": true
+    },
+    "updates": {
+      "url": "https://u.expo.dev/REPLACE_WITH_PROJECT_ID"
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "REPLACE_WITH_PROJECT_ID"
+      }
+    },
+    "owner": "REPLACE_WITH_EXPO_USERNAME"
+  }
+}
