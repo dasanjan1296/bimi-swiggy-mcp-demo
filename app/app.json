@@ -45,7 +45,8 @@
           "color": "#F0A060"
         }
       ],
-      "@sentry/react-native"
+      "@sentry/react-native",
+      "./plugins/with-fmt-consteval-patch"
     ],
     "experiments": {
       "typedRoutes": true
