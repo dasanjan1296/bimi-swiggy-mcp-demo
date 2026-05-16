@@ -2,6 +2,9 @@ fastapi>=0.115.0
 uvicorn[standard]>=0.32.0
 sqlalchemy[asyncio]>=2.0.36
 asyncpg>=0.30.0
+# Optional dev driver. Lets reviewers run the API without a local Postgres
+# by setting DATABASE_URL=sqlite+aiosqlite:///./bimi.db (see .env.example).
+aiosqlite>=0.20.0
 alembic>=1.14.0
 pydantic[email]>=2.10.0
 pydantic-settings>=2.7.0
